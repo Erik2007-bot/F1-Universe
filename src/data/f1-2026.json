@@ -1,0 +1,47 @@
+[
+    {
+        "id": 1,
+        "round": 1,
+        "raceName": "Bahrain Grand Prix",
+        "circuit": "Bahrain International Circuit",
+        "date": "2026-03-05",
+        "location": "Sakhir, Bahrain",
+        "image": "https://media.formula1.com/image/upload/f_auto,c_limit,w_1440/content/dam/fom-website/2018-redesign-assets/Racehub%20header%20images%2016x9/Bahrain"
+    },
+    {
+        "id": 2,
+        "round": 2,
+        "raceName": "Saudi Arabian Grand Prix",
+        "circuit": "Jeddah Corniche Circuit",
+        "date": "2026-03-19",
+        "location": "Jeddah, Saudi Arabia",
+        "image": "https://media.formula1.com/image/upload/f_auto,c_limit,w_1440/content/dam/fom-website/2018-redesign-assets/Racehub%20header%20images%2016x9/Saudi%20Arabia"
+    },
+    {
+        "id": 3,
+        "round": 3,
+        "raceName": "Australian Grand Prix",
+        "circuit": "Albert Park Circuit",
+        "date": "2026-04-02",
+        "location": "Melbourne, Australia",
+        "image": "https://media.formula1.com/image/upload/f_auto,c_limit,w_1440/content/dam/fom-website/2018-redesign-assets/Racehub%20header%20images%2016x9/Australia"
+    },
+    {
+        "id": 4,
+        "round": 4,
+        "raceName": "Japanese Grand Prix",
+        "circuit": "Suzuka International Racing Course",
+        "date": "2026-04-16",
+        "location": "Suzuka, Japan",
+        "image": "https://media.formula1.com/image/upload/f_auto,c_limit,w_1440/content/dam/fom-website/2018-redesign-assets/Racehub%20header%20images%2016x9/Japan"
+    },
+    {
+        "id": 5,
+        "round": 5,
+        "raceName": "Madrid Grand Prix",
+        "circuit": "IFEMA Madrid Circuit",
+        "date": "2026-05-03",
+        "location": "Madrid, Spain",
+        "image": "https://media.formula1.com/image/upload/f_auto,c_limit,w_1440/content/dam/fom-website/2018-redesign-assets/Racehub%20header%20images%2016x9/Spain"
+    }
+]

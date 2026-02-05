@@ -1,0 +1,26 @@
+:root {
+  --f1-red: #e10600;
+  --f1-dark: #15151e;
+  --f1-white: #ffffff;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Titillium Web', sans-serif;
+  background-color: #f3f3f3;
+  color: var(--f1-dark);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+}

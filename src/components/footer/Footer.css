@@ -1,0 +1,29 @@
+.footer {
+    background-color: var(--f1-dark);
+    color: var(--f1-white);
+    text-align: center;
+    padding: 2rem;
+    margin-top: auto;
+    border-top: 4px solid var(--f1-red);
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+}
+
+.social-links {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.social-links a {
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.social-links a:hover {
+    color: var(--f1-red);
+}
