@@ -4,7 +4,7 @@ import racesData from '../../data/f1-2026.json';
 import RaceCard from '../../components/race-card/RaceCard';
 import './Home.css';
 
-// Fix Leaflet marker icon issue
+// logo
 import L from 'leaflet';
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
@@ -18,8 +18,8 @@ let DefaultIcon = L.icon({
 L.Marker.prototype.options.icon = DefaultIcon;
 
 const Home = () => {
-    // Next GP coords (Bahrain)
-    const position = [26.0325, 50.5106];
+    // Next GP coords (Albert Park)
+    const position = [-37.8497, 144.968];
 
     return (
         <div className="home-page">
@@ -38,7 +38,7 @@ const Home = () => {
                         />
                         <Marker position={position}>
                             <Popup>
-                                Bahrain International Circuit <br /> First Race of 2026.
+                                Circuito de Albert Park <br /> First Race of 2026.
                             </Popup>
                         </Marker>
                     </MapContainer>

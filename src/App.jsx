@@ -4,6 +4,7 @@ import Footer from './components/footer/Footer';
 import Home from './pages/home/Home';
 import Drivers from './pages/drivers/Drivers';
 import Contact from './pages/contact/Contact';
+import Legal from './pages/legal/Legal';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
             <Route path="/home" element={<Home />} />
             <Route path="/drivers" element={<Drivers />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/legal" element={<Legal />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </main>

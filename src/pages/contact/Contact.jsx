@@ -26,7 +26,7 @@ const Contact = () => {
 
                 <div className="contact-info">
                     <h2>Our Location</h2>
-                    <p>London, UK (F1 Management)</p>
+                    <p>El Rincón, Las Palmas de Gran Canaria</p>
                     <div className="map-embed">
                         <iframe
                             width="100%"
@@ -35,8 +35,8 @@ const Contact = () => {
                             scrolling="no"
                             marginHeight="0"
                             marginWidth="0"
-                            src="https://www.openstreetmap.org/export/embed.html?bbox=-0.1425%2C51.5000%2C-0.1250%2C51.5167&amp;layer=mapnik"
-                            title="F1 Location"
+                            src="https://www.openstreetmap.org/export/embed.html?bbox=-15.455%2C28.125%2C-15.430%2C28.145&amp;layer=mapnik&amp;marker=28.130%2C-15.445"
+                            title="El Rincón Location"
                         ></iframe>
                     </div>
                 </div>
