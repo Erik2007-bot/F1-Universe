@@ -12,7 +12,7 @@ To run this project locally:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/F1-Universe.git
+   git clone https://github.com/Erik2007-bot/F1-Universe
    ```
 2. Navigate to the project directory:
    ```bash
@@ -26,10 +26,6 @@ To run this project locally:
    ```bash
    npm run dev
    ```
-
-## Figma Design Link
-Based on F1 Community designs:
-[F1 Landing Page - Figma Community](https://www.figma.com/community/file/123456789/f1-landing-page-concept)
 
 ## Tutorial Links
 - [Readme Template](https://github.com/othneildrew/Best-README-Template)
