@@ -1,149 +1,391 @@
+/* --- Variables de Diseño Premium F1 --- */
+:root {
+    --f1-red: #e10600;
+    --f1-black: #15151e;
+    --f1-dark-grey: #1f1f27;
+    --f1-light-grey: #38383f;
+    --f1-silver: #949498;
+    --glass-bg: rgba(31, 31, 39, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --accent-gradient: linear-gradient(135deg, #e10600 0%, #ff3c3c 100%);
+    --card-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+/* --- Base de la página --- */
 .forum-page {
-    padding: 2rem;
+    padding: 2rem 1rem;
     max-width: 1200px;
     margin: 0 auto;
     color: #fff;
-    background-color: #15151e;
+    background: radial-gradient(circle at top right, #1f1f27 0%, #15151e 100%);
     min-height: 100vh;
+    font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
+    overflow-x: hidden;
 }
 
+/* --- Header con Estética de Transmisión --- */
 .forum-header {
     text-align: center;
-    margin-bottom: 3rem;
+    margin-bottom: 4rem;
+    padding: 2rem 0;
+    position: relative;
 }
 
 .forum-header h1 {
-    font-size: 2.5rem;
-    color: #e10600;
-    margin-bottom: 1rem;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    color: #fff;
+    margin-bottom: 0.5rem;
     text-transform: uppercase;
+    letter-spacing: -2px;
+    font-weight: 900;
+    font-style: italic;
+    background: linear-gradient(to bottom, #fff 0%, #949498 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.5));
 }
 
 .forum-header p {
     font-size: 1.1rem;
-    color: #949498;
+    color: var(--f1-red);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 600;
 }
 
-.forum-controls {
+.forum-header::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 4px;
+    background: var(--f1-red);
+    border-radius: 2px;
+}
+
+/* --- SECCIÓN CREAR POST (Glassmorphism) --- */
+.create-post-section {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 2.5rem;
+    border-radius: 20px;
+    margin-bottom: 4rem;
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--card-shadow);
+    animation: slideInUp 0.6s ease-out;
+}
+
+.forum-form h3 {
+    margin-bottom: 2rem;
+    font-size: 1.6rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.forum-form h3::before {
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 24px;
+    background: var(--f1-red);
+    border-radius: 2px;
+}
+
+.forum-form {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
-    margin-bottom: 3rem;
-    background: #1f1f27;
-    padding: 1.5rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
-.search-bar input {
+/* Inputs Modernizados */
+.forum-form input[type="text"],
+.forum-form textarea,
+.forum-form select {
     width: 100%;
-    padding: 1rem 1.5rem;
-    border-radius: 8px;
-    border: 1px solid #38383f;
-    background: #15151e;
+    padding: 1.2rem;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--f1-light-grey);
+    border-radius: 12px;
     color: #fff;
     font-size: 1rem;
-    transition: border-color 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.search-bar input:focus {
+.forum-form textarea {
+    min-height: 150px;
+}
+
+.forum-form input:focus,
+.forum-form textarea:focus,
+.forum-form select:focus {
     outline: none;
-    border-color: #e10600;
+    border-color: var(--f1-red);
+    background: rgba(0, 0, 0, 0.4);
+    box-shadow: 0 0 0 4px rgba(225, 6, 0, 0.15);
+    transform: translateY(-2px);
+}
+
+/* Footer del Formulario */
+.form-footer {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.form-footer select {
+    flex: 1;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1.2rem;
+}
+
+.submit-btn {
+    flex: 2;
+    background: var(--accent-gradient);
+    color: #fff;
+    border: none;
+    padding: 1.2rem;
+    border-radius: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(225, 6, 0, 0.3);
+}
+
+.submit-btn:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 6px 20px rgba(225, 6, 0, 0.4);
+    filter: brightness(1.1);
+}
+
+/* --- CONTROLES DE BÚSQUEDA Y FILTROS --- */
+.forum-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-bottom: 4rem;
+    background: rgba(31, 31, 39, 0.5);
+    padding: 2rem;
+    border-radius: 20px;
+    border: 1px solid var(--glass-border);
+}
+
+.search-input {
+    width: 100%;
+    padding: 1.2rem;
+    border-radius: 12px;
+    border: 1px solid var(--f1-light-grey);
+    background: rgba(0, 0, 0, 0.2);
+    color: #fff;
+    font-size: 1.1rem;
+    transition: 0.3s;
+}
+
+.search-input:focus {
+    border-color: var(--f1-red);
+    outline: none;
+    background: rgba(0, 0, 0, 0.3);
 }
 
 .category-filters {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.8rem;
+    gap: 1rem;
+    justify-content: center;
 }
 
 .filter-btn {
-    padding: 0.6rem 1.2rem;
-    border-radius: 20px;
-    border: 1px solid #38383f;
+    padding: 0.8rem 1.8rem;
+    border-radius: 100px;
+    border: 1px solid var(--f1-light-grey);
     background: transparent;
-    color: #fff;
+    color: var(--f1-silver);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.85rem;
     cursor: pointer;
-    transition: all 0.3s ease;
-    font-size: 0.9rem;
-}
-
-.filter-btn:hover {
-    border-color: #e10600;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .filter-btn.active {
-    background: #e10600;
-    border-color: #e10600;
+    background: var(--f1-red);
+    color: #fff;
+    border-color: var(--f1-red);
+    transform: scale(1.1);
+    box-shadow: 0 4px 15px rgba(225, 6, 0, 0.3);
 }
 
+.filter-btn:hover:not(.active) {
+    border-color: var(--f1-red);
+    color: #fff;
+}
+
+/* --- CONTENEDOR DE POSTS --- */
 .posts-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 2.5rem;
 }
 
 .post-card {
-    background: #1f1f27;
-    border-radius: 12px;
-    padding: 1.5rem;
-    border-left: 4px solid #e10600;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background: var(--f1-dark-grey);
+    border-radius: 20px;
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid var(--f1-light-grey);
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
     display: flex;
     flex-direction: column;
+    position: relative;
+}
+
+.post-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--f1-red);
+    opacity: 0;
+    transition: 0.3s;
 }
 
 .post-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+    transform: translateY(-12px);
+    border-color: var(--f1-red);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+}
+
+.post-card:hover::before {
+    opacity: 1;
+}
+
+.post-content-wrapper {
+    padding: 2rem;
+    flex-grow: 1;
 }
 
 .post-category {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     text-transform: uppercase;
-    color: #e10600;
-    font-weight: bold;
-    margin-bottom: 0.5rem;
+    color: var(--f1-red);
+    font-weight: 800;
+    letter-spacing: 2px;
+    margin-bottom: 1rem;
     display: block;
 }
 
 .post-card h2 {
-    font-size: 1.3rem;
+    font-size: 1.6rem;
     margin-bottom: 1rem;
+    line-height: 1.2;
+    font-weight: 800;
     color: #fff;
 }
 
-.post-excerpt {
-    color: #949498;
-    line-height: 1.6;
+.post-card p {
+    color: var(--f1-silver);
+    line-height: 1.7;
     margin-bottom: 1.5rem;
-    flex-grow: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 .post-footer {
     display: flex;
     justify-content: space-between;
-    font-size: 0.85rem;
-    color: #5b5b62;
-    padding-top: 1rem;
-    border-top: 1px solid #38383f;
+    align-items: center;
+    font-size: 0.8rem;
+    color: var(--f1-silver);
+    padding: 1.5rem 2rem;
+    background: rgba(0, 0, 0, 0.2);
+    border-top: 1px solid var(--f1-light-grey);
 }
 
-.loader,
-.no-results {
+.post-footer span:first-child {
+    font-weight: 700;
+    color: #fff;
+}
+
+/* --- Animaciones --- */
+@keyframes slideInUp {
+    from {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* --- Loader --- */
+.loader {
     text-align: center;
-    padding: 3rem;
-    font-size: 1.2rem;
-    color: #949498;
+    padding: 5rem;
+    font-size: 1.5rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    font-style: italic;
+    color: var(--f1-red);
 }
 
+.loader::after {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 40px;
+    margin: 20px auto;
+    border: 4px solid rgba(225, 6, 0, 0.1);
+    border-top: 4px solid var(--f1-red);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* --- RESPONSIVE --- */
 @media (max-width: 768px) {
     .forum-page {
         padding: 1rem;
     }
 
     .forum-header h1 {
-        font-size: 2rem;
+        font-size: 2.5rem;
+    }
+
+    .form-footer {
+        flex-direction: column;
+    }
+
+    .submit-btn,
+    .form-footer select {
+        width: 100%;
+    }
+
+    .create-post-section {
+        padding: 1.5rem;
     }
 
     .posts-container {

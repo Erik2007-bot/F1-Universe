@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { collection, getDocs, query, where } from 'firebase/firestore';
-import { db } from '../../firebase';
+import { collection, getDocs, addDoc, query, orderBy } from 'firebase/firestore';
+import { db } from '../../firebase'; // Verifica que esta ruta llegue a tu firebase.js
 import './Forum.css';
 
 const Forum = () => {
@@ -9,38 +9,69 @@ const Forum = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedCategory, setSelectedCategory] = useState('All');
 
+    // Estado para el formulario con los nombres de tu imagen
+    const [newPost, setNewPost] = useState({ titulo: '', contenido: '', Categoria: 'General' });
+
     const categories = ['All', 'General', 'Races', 'Tech', 'Drivers', 'Rumors'];
 
-    useEffect(() => {
-        const fetchPosts = async () => {
-            setLoading(true);
-            try {
-                const postsCol = collection(db, 'posts');
-                const snapshot = await getDocs(postsCol);
-                const postsList = snapshot.docs.map(doc => ({
-                    id: doc.id,
-                    ...doc.data()
-                }));
-                setPosts(postsList);
-            } catch (error) {
-                console.error("Error fetching posts: ", error);
-                // Fallback for demo/empty state
-                setPosts([
-                    { id: '1', title: 'Welcome to the F1 Forum', content: 'Di lo que quieras sobre Formula 1 aquí!', category: 'General', author: 'Admin', date: '2026-02-25' },
-                    { id: '2', title: '2026 Engine Regulations', content: '¿Qué pensaís sobre las nuevas unidades de potencia?', category: 'Tech', author: 'User123', date: '2026-02-24' },
-                    { id: '3', title: 'Monaco GP Predictions', content: '¿Quién se llevará la pole position este año?', category: 'Races', author: 'RaceFan', date: '2026-02-23' }
-                ]);
-            } finally {
-                setLoading(false);
-            }
-        };
+    // 1. LEER DATOS (FETCH)
+    const fetchPosts = async () => {
+        setLoading(true);
+        try {
+            const postsCol = collection(db, 'posts');
+            // Traemos los documentos
+            const snapshot = await getDocs(postsCol);
 
+            const postsList = snapshot.docs.map(doc => {
+                const data = doc.data();
+                return {
+                    id: doc.id,
+                    // Mapeamos los nombres exactos de tu imagen de Firestore
+                    title: data.titulo,
+                    content: data.contenido,
+                    category: data.Categoria,
+                    // Convertimos la fecha de Firestore a algo legible
+                    date: data.createdAt?.toDate ? data.createdAt.toDate().toLocaleDateString() : 'Reciente',
+                    author: data.author || "Fan de F1"
+                };
+            });
+            setPosts(postsList);
+        } catch (error) {
+            console.error("Error al obtener posts: ", error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
         fetchPosts();
     }, []);
 
+    // 2. ESCRIBIR DATOS (ADD)
+    const handleCreatePost = async (e) => {
+        e.preventDefault();
+        if (!newPost.titulo || !newPost.contenido) return;
+
+        try {
+            await addDoc(collection(db, 'posts'), {
+                titulo: newPost.titulo,
+                contenido: newPost.contenido,
+                Categoria: newPost.Categoria,
+                createdAt: new Date(), // Esto genera el campo que vimos en tu imagen
+                author: "Usuario F1"
+            });
+
+            setNewPost({ titulo: '', contenido: '', Categoria: 'General' }); // Limpiar
+            fetchPosts(); // Recargar la lista
+            alert("¡Post publicado en F1 Universe!");
+        } catch (error) {
+            console.error("Error al guardar: ", error);
+        }
+    };
+
     const filteredPosts = posts.filter(post => {
-        const matchesSearch = post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            post.content.toLowerCase().includes(searchTerm.toLowerCase());
+        const matchesSearch = (post.title?.toLowerCase() || "").includes(searchTerm.toLowerCase()) ||
+            (post.content?.toLowerCase() || "").includes(searchTerm.toLowerCase());
         const matchesCategory = selectedCategory === 'All' || post.category === selectedCategory;
         return matchesSearch && matchesCategory;
     });
@@ -49,18 +80,48 @@ const Forum = () => {
         <div className="forum-page">
             <header className="forum-header">
                 <h1>F1 Community Forum</h1>
-                <p>Únete a la conversación con otros apasionados de la Fórmula 1.</p>
+                <p>Comenta la actualidad de la categoría reina.</p>
             </header>
 
-            <div className="forum-controls">
-                <div className="search-bar">
+            {/* FORMULARIO PARA ESCRIBIR */}
+            <section className="create-post-section">
+                <form onSubmit={handleCreatePost} className="forum-form">
+                    <h3>¿Qué tienes en mente?</h3>
                     <input
                         type="text"
-                        placeholder="Buscar temas..."
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
+                        placeholder="Título (ej: ¡Alonso al podio!)"
+                        value={newPost.titulo}
+                        onChange={(e) => setNewPost({ ...newPost, titulo: e.target.value })}
+                        required
                     />
-                </div>
+                    <textarea
+                        placeholder="Escribe aquí tu contenido..."
+                        value={newPost.contenido}
+                        onChange={(e) => setNewPost({ ...newPost, contenido: e.target.value })}
+                        required
+                    />
+                    <div className="form-footer">
+                        <select
+                            value={newPost.Categoria}
+                            onChange={(e) => setNewPost({ ...newPost, Categoria: e.target.value })}
+                        >
+                            {categories.filter(c => c !== 'All').map(c => (
+                                <option key={c} value={c}>{c}</option>
+                            ))}
+                        </select>
+                        <button type="submit" className="submit-btn">Enviar Post</button>
+                    </div>
+                </form>
+            </section>
+
+            <div className="forum-controls">
+                <input
+                    type="text"
+                    placeholder="Buscar..."
+                    className="search-input"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                />
                 <div className="category-filters">
                     {categories.map(cat => (
                         <button
@@ -75,26 +136,22 @@ const Forum = () => {
             </div>
 
             {loading ? (
-                <div className="loader">Cargando comunidad...</div>
+                <div className="loader">Calentando motores...</div>
             ) : (
                 <div className="posts-container">
-                    {filteredPosts.length > 0 ? (
-                        filteredPosts.map(post => (
-                            <article key={post.id} className="post-card">
+                    {filteredPosts.map(post => (
+                        <article key={post.id} className="post-card">
+                            <div className="post-content-wrapper">
                                 <span className="post-category">{post.category}</span>
                                 <h2>{post.title}</h2>
-                                <p className="post-excerpt">{post.content}</p>
-                                <div className="post-footer">
-                                    <span className="post-author">Por: {post.author}</span>
-                                    <span className="post-date">{post.date}</span>
-                                </div>
-                            </article>
-                        ))
-                    ) : (
-                        <div className="no-results">
-                            <p>No se encontraron temas coincidentes.</p>
-                        </div>
-                    )}
+                                <p>{post.content}</p>
+                            </div>
+                            <div className="post-footer">
+                                <span>Por: {post.author}</span>
+                                <span>{post.date}</span>
+                            </div>
+                        </article>
+                    ))}
                 </div>
             )}
         </div>
