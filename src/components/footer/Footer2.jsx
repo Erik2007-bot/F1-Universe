@@ -1,4 +1,4 @@
-import { FaGithub, FaInstagram, } from 'react-icons/fa';
+import { FaGithub, FaInstagram, FaTwitch, FaYoutube } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import './Footer.css';
 
@@ -16,6 +16,12 @@ const Footer = () => {
                         <a href="https://www.instagram.com/erik2007_bot" target="_blank" rel="noreferrer" aria-label="Instagram">
                             <FaInstagram size={24} />
                         </a>
+                        <a href="https://www.twitch.tv/" target="_blank" rel="noreferrer" aria-label="Twitch">
+                            <FaTwitch size={24} />
+                        </a>
+                        <a href="https://www.youtube.com/" target="_blank" rel="noreferrer" aria-label="YouTube">
+                            <FaYoutube size={24} />
+                        </a>
                     </div>
                 </div>
 
@@ -25,6 +31,7 @@ const Footer = () => {
                         <li><Link to="/">Inicio</Link></li>
                         <li><Link to="/drivers">Pilotos</Link></li>
                         <li><Link to="/contact">Contacto</Link></li>
+                        <li><Link to="/news">Noticias (RSS)</Link></li>
                     </ul>
                 </div>
 

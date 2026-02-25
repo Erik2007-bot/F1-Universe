@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import racesData from '../../data/f1-2026.json';
@@ -18,6 +19,15 @@ let DefaultIcon = L.icon({
 L.Marker.prototype.options.icon = DefaultIcon;
 
 const Home = () => {
+    // State for search filter
+    const [searchTerm, setSearchTerm] = useState('');
+
+    // Filter races based on search term
+    const filteredRaces = racesData.filter(race =>
+        race.raceName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        race.location.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
     // Next GP coords (Albert Park)
     const position = [-37.8497, 144.968];
 
@@ -46,11 +56,25 @@ const Home = () => {
             </section>
 
             <section className="races-grid">
-                <h2>2026 Race Calendar</h2>
+                <div className="section-header">
+                    <h2>2026 Race Calendar</h2>
+                    <div className="search-box">
+                        <input
+                            type="text"
+                            placeholder="Search by race or location..."
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                        />
+                    </div>
+                </div>
                 <div className="grid-container">
-                    {racesData.map((race) => (
-                        <RaceCard key={race.id} race={race} />
-                    ))}
+                    {filteredRaces.length > 0 ? (
+                        filteredRaces.map((race) => (
+                            <RaceCard key={race.id} race={race} />
+                        ))
+                    ) : (
+                        <p className="no-results">No races found matching your search.</p>
+                    )}
                 </div>
             </section>
         </div>
