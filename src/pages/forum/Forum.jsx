@@ -26,9 +26,9 @@ const Forum = () => {
                 console.error("Error fetching posts: ", error);
                 // Fallback for demo/empty state
                 setPosts([
-                    { id: '1', title: 'Welcome to the F1 Forum', content: 'Discuss anything about Formula 1 here!', category: 'General', author: 'Admin', date: '2026-02-25' },
-                    { id: '2', title: '2026 Engine Regulations', content: 'What do you think about the new power units?', category: 'Tech', author: 'User123', date: '2026-02-24' },
-                    { id: '3', title: 'Monaco GP Predictions', content: 'Who will take pole position this year?', category: 'Races', author: 'RaceFan', date: '2026-02-23' }
+                    { id: '1', title: 'Welcome to the F1 Forum', content: 'Di lo que quieras sobre Formula 1 aquí!', category: 'General', author: 'Admin', date: '2026-02-25' },
+                    { id: '2', title: '2026 Engine Regulations', content: '¿Qué pensaís sobre las nuevas unidades de potencia?', category: 'Tech', author: 'User123', date: '2026-02-24' },
+                    { id: '3', title: 'Monaco GP Predictions', content: '¿Quién se llevará la pole position este año?', category: 'Races', author: 'RaceFan', date: '2026-02-23' }
                 ]);
             } finally {
                 setLoading(false);
