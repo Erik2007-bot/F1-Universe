@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import racesData from '../../data/f1-2026.json';
 import RaceCard from '../../components/race-card/RaceCard';
+import ForumSection from '../../components/forum/ForumSection';
 import './Home.css';
 
 // logo
@@ -30,6 +32,21 @@ const Home = () => {
 
     // Next GP coords (Albert Park)
     const position = [-37.8497, 144.968];
+
+    const { hash } = useLocation();
+
+    useEffect(() => {
+        if (hash) {
+            const id = hash.replace('#', '');
+            const element = document.getElementById(id);
+            if (element) {
+                // Pequeño retardo para asegurar que el componente esté renderizado
+                setTimeout(() => {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                }, 100);
+            }
+        }
+    }, [hash]);
 
     return (
         <div className="home-page">
@@ -77,6 +94,8 @@ const Home = () => {
                     )}
                 </div>
             </section>
+
+            <ForumSection />
         </div>
     );
 };

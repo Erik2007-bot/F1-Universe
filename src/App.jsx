@@ -6,7 +6,6 @@ import Drivers from './pages/drivers/Drivers';
 import Contact from './pages/contact/Contact';
 import Legal from './pages/legal/Legal';
 import News from './pages/news/News';
-import Forum from './pages/forum/Forum';
 
 function App() {
   return (
@@ -20,7 +19,7 @@ function App() {
             <Route path="/drivers" element={<Drivers />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/news" element={<News />} />
-            <Route path="/forum" element={<Forum />} />
+            <Route path="/news" element={<News />} />
             <Route path="/legal" element={<Legal />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>

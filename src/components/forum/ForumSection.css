@@ -1,0 +1,267 @@
+.forum-section {
+    --f1-red: #e10600;
+    --f1-dark: #15151e;
+    --f1-light-bg: #f3f3f3;
+    --f1-white: #ffffff;
+    --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+    padding: 4rem 1rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    color: var(--f1-dark);
+    font-family: 'Titillium Web', 'Inter', sans-serif;
+    position: relative;
+}
+
+/* --- NOTIFICACIÓN (TOAST) --- */
+.status-toast {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: var(--f1-dark);
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    border-left: 5px solid var(--f1-red);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    z-index: 9999;
+    font-weight: 600;
+    animation: slideIn 0.4s ease-out forwards;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(120%);
+    }
+
+    to {
+        transform: translateX(0);
+    }
+}
+
+/* --- HEADER --- */
+.forum-section .forum-header {
+    text-align: left;
+    margin-bottom: 3rem;
+}
+
+.forum-section .forum-header h1 {
+    font-size: 2rem;
+    border-left: 5px solid var(--f1-red);
+    padding-left: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+/* --- FORMULARIO DE CREACIÓN --- */
+.forum-section .create-post-wrapper {
+    background: var(--f1-white);
+    padding: 2rem;
+    border-radius: 12px;
+    margin-bottom: 3rem;
+    border: 1px solid #ddd;
+    box-shadow: var(--card-shadow);
+}
+
+.forum-section .forum-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.forum-section .forum-form input,
+.forum-section .forum-form textarea,
+.forum-section .forum-form select {
+    width: 100%;
+    padding: 0.8rem 1.2rem;
+    border: 2px solid #ddd;
+    border-radius: 25px;
+    font-size: 1rem;
+    transition: 0.3s;
+}
+
+.forum-section .forum-form textarea {
+    min-height: 120px;
+    border-radius: 15px;
+}
+
+.forum-section .forum-form input:focus,
+.forum-section .forum-form textarea:focus {
+    outline: none;
+    border-color: var(--f1-red);
+}
+
+.forum-section .submit-btn {
+    background: var(--f1-red);
+    color: white;
+    border: none;
+    padding: 0.8rem 2rem;
+    border-radius: 25px;
+    font-weight: 700;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+/* --- BUSCADOR Y FILTROS --- */
+.forum-section .forum-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.forum-section .search-input {
+    padding: 0.7rem 1.5rem;
+    border-radius: 25px;
+    border: 2px solid #ddd;
+    width: 300px;
+}
+
+.forum-section .filter-btn {
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    border: 1px solid #ddd;
+    background: white;
+    cursor: pointer;
+}
+
+.forum-section .filter-btn.active {
+    background: var(--f1-red);
+    color: white;
+}
+
+/* --- TARJETAS DE POSTS --- */
+.forum-section .posts-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2rem;
+}
+
+.forum-section .post-card {
+    background: white;
+    border-radius: 12px;
+    border: 1px solid #ddd;
+    display: flex;
+    flex-direction: column;
+    transition: 0.3s;
+}
+
+.forum-section .post-card:hover {
+    border-color: var(--f1-red);
+    box-shadow: var(--card-shadow);
+}
+
+.forum-section .post-content-wrapper {
+    padding: 1.5rem;
+    flex-grow: 1;
+}
+
+.forum-section .post-category {
+    color: var(--f1-red);
+    font-weight: 700;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+}
+
+/* --- MODO EDICIÓN (Dentro de la tarjeta) --- */
+.edit-mode-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.edit-input {
+    padding: 8px;
+    border: 2px solid #eee;
+    border-radius: 8px;
+    font-weight: 700;
+}
+
+.edit-textarea {
+    padding: 8px;
+    border: 2px solid #eee;
+    border-radius: 8px;
+    min-height: 80px;
+    font-family: inherit;
+}
+
+.edit-input:focus,
+.edit-textarea:focus {
+    border-color: var(--f1-red);
+    outline: none;
+}
+
+/* --- ACCIONES Y FOOTER --- */
+.forum-section .post-footer {
+    padding: 1rem 1.5rem;
+    background: #f9f9f9;
+    font-size: 0.8rem;
+    color: #888;
+    display: flex;
+    justify-content: space-between;
+}
+
+.forum-section .post-actions {
+    padding: 1rem 1.5rem;
+    display: flex;
+    gap: 0.5rem;
+    justify-content: flex-end;
+    border-top: 1px dashed #eee;
+}
+
+.edit-btn,
+.delete-btn,
+.save-btn,
+.cancel-btn {
+    padding: 5px 12px;
+    border-radius: 15px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    cursor: pointer;
+    border: 1px solid transparent;
+    text-transform: uppercase;
+}
+
+.edit-btn {
+    background: #f0f0f0;
+    color: #666;
+}
+
+.delete-btn {
+    background: transparent;
+    color: var(--f1-red);
+    border-color: var(--f1-red);
+}
+
+.save-btn {
+    background: #28a745;
+    color: white;
+}
+
+.cancel-btn {
+    background: #6c757d;
+    color: white;
+}
+
+.edit-btn:hover {
+    background: var(--f1-dark);
+    color: white;
+}
+
+.delete-btn:hover {
+    background: var(--f1-red);
+    color: white;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 768px) {
+    .forum-section .forum-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .forum-section .search-input {
+        width: 100%;
+    }
+}
