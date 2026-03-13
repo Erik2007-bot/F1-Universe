@@ -21,6 +21,19 @@ The goal of this project was to:
 * Deliver a professional user experience
 
 ---
+---
+
+## 🌐 Live Demo (Firebase Hosting)
+
+The project is deployed using **Firebase Hosting**.
+
+You can access the live version here:
+
+🔗 **Live URL:**  
+(https://f1-universe.web.app)
+
+---
+
 
 ## 🚀 Features
 
