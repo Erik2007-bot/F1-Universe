@@ -1,15 +1,13 @@
 # 🏎️ F1 Universe – Formula 1 2026 Fan App
 
 A modern, responsive React web application that showcases the 2026 Formula 1 season.
-
-The project includes an interactive race calendar, driver grid, community forum, contact page, and map integrations using third-party libraries.
+The project includes an interactive race calendar, driver grid, contact page, and map integrations using third-party libraries.
 
 ---
 
 ## 📌 About The Project
 
 **F1 Universe** is a single-page application built with React and Vite.
-
 It provides structured information about the 2026 Formula 1 season in a clean and responsive interface.
 
 The goal of this project was to:
@@ -19,20 +17,8 @@ The goal of this project was to:
 * Use reusable components
 * Implement client-side routing
 * Integrate third-party libraries
-* Use Firebase for real-time data
 * Ensure responsive design
 * Deliver a professional user experience
-
----
-
-## 🌐 Live Demo (Firebase Hosting)
-
-The project is deployed using **Firebase Hosting**.
-
-You can access the live version here:
-
-🔗 **Live URL:**  
-(https://f1-universe.web.app)
 
 ---
 
@@ -42,46 +28,44 @@ You can access the live version here:
 * 🗺️ Interactive map for the next Grand Prix
 * 📊 JSON-based data rendering
 * 👨‍🏎️ Drivers grid page
-* 💬 Community forum powered by Firebase
 * 📬 Contact page with form and location map
 * 📱 Fully responsive layout
 * 🔁 Shared Header and Footer components
 * 🌍 Client-side routing with React Router
 * 🧩 Reusable components with props
-* ☁️ Firebase Firestore integration (CRUD)
 
 ---
 
 ## 🏗️ Project Structure
 
+```
 src/
-
 │
-
 ├── assets/
-│ ├── drivers/
-│ └── races/
-
+│   ├── drivers/
+│   └── races/
+│
 ├── components/
-│ ├── header/
-│ ├── footer/
-│ ├── race-card/
-│ ├── driver-card/
-│ └── forum-section/
-
+│   ├── header/
+│   ├── footer/
+│   ├── race-card/
+│   ├── driver-card/
+│   └── Forum/
+|   
+│
 ├── pages/
-│ ├── home/
-│ ├── drivers/
-│ └── contact/
-
+│   ├── home/
+│   ├── drivers/
+│   ├── contact/
+│   ├── legal/
+│   └── news/
+│
 ├── data/
-│ ├── f1-2026.json
-│ └── drivers-2026.json
-
-├── firebase.js
-
+│   ├── f1-2026.json
+│   └── drivers-2026.json
+│
 └── App.jsx
-
+```
 
 ### Naming Conventions Used
 
@@ -97,13 +81,14 @@ All naming conventions were applied consistently across the project.
 
 ---
 
-# 🏠 Home Page
+## 🏠 Home Page
 
 The home page is accessible via:
 
+```
 http://localhost:5173
 http://localhost:5173/home
-
+```
 
 ### It includes:
 
@@ -121,267 +106,186 @@ Dynamic rendering of races using:
 
 ```javascript
 racesData.map(...)
-Each race is displayed using a reusable RaceCard component that receives props.
+```
 
-👨‍🏎️ **Drivers Page**
+Each race is displayed using a reusable `RaceCard` component that receives props.
+
+---
+
+## 👨‍🏎️ Drivers Page
+
 Displays the full 2026 driver lineup.
 
-Rendered dynamically from a JSON data file
+* Rendered dynamically from a JSON data file
+* Uses reusable `DriverCard` components
+* Responsive grid layout
+* Clean and minimal design
 
-Uses reusable DriverCard components
+---
 
-Responsive grid layout
+## 📬 Contact Page
 
-Clean and minimal design
-
-💬 **Community Forum**
-The application includes a community forum section where users can interact and share opinions about Formula 1.
-
-The forum demonstrates full CRUD functionality using Firebase Firestore.
-
-Users can:
-
-Create new posts
-
-Edit existing posts
-
-Delete posts
-
-Search posts
-
-Filter posts by category
-
-Forum Categories
-General
-
-Races
-
-Tech
-
-Drivers
-
-Rumors
-
-**Technologies Used**
-Firebase Firestore
-
-React state management
-
-Dynamic filtering
-
-Real-time database interaction
-
-Each post contains:
-
-Title
-
-Content
-
-Category
-
-Author
-
-Date
-
-This feature simulates a small social platform for F1 fans.
-
-📬 **Contact Page**
 Includes:
 
-Functional contact form (HTML validation)
-
-Embedded OpenStreetMap location
-
-Responsive two-column layout
-
-Clean form styling
+* Functional contact form (HTML validation)
+* Embedded OpenStreetMap location
+* Responsive two-column layout
+* Clean form styling
 
 The layout adapts properly to smaller screens using Flexbox and media queries.
 
-🧩 **Reusable Components**
+---
+
+## 🧩 Reusable Components
+
 The application was built following component-based architecture:
 
-Header
-
-Footer
-
-RaceCard
-
-DriverCard
-
-ForumSection
+* `Header`
+* `Footer`
+* `RaceCard`
+* `DriverCard`
 
 Each component:
 
-Has its own folder
+* Has its own folder
+* Has its own CSS file
+* Uses props when necessary
+* Follows clean code principles
 
-Has its own CSS file
+---
 
-Uses props when necessary
+## 🛠️ Built With
 
-Follows clean code principles
+* **React**
+* **Vite**
+* **React Router DOM**
+* **React Leaflet**
+* **Leaflet**
+* **React Icons**
+* **OpenStreetMap**
+* **CSS3 (Flexbox & Grid)**
 
-🛠️ **Built With**
-React
+---
 
-Vite
+## 🌍 Third-Party Libraries
 
-React Router DOM
+### React Router DOM
 
-React Leaflet
-
-Leaflet
-
-React Icons
-
-Firebase
-
-OpenStreetMap
-
-CSS3 (Flexbox & Grid)
-
-🌍 **Third-Party Libraries**
-React Router DOM
 Used for client-side navigation between pages.
 
-React Leaflet & Leaflet
+### React Leaflet & Leaflet
+
 Used to display interactive maps.
 
-React Icons
+### React Icons
+
 Used for social media icons in the footer.
 
-Firebase
-Used for:
+---
 
-Cloud Firestore database
+## 📱 Responsive Design
 
-Forum CRUD operations
-
-Hosting deployment
-
-📱 **Responsive Design**
 The entire application is fully responsive.
 
 Techniques used:
 
-Flexbox
-
-CSS Grid
-
-Media Queries
-
-Fluid layouts
-
-Responsive images
+* Flexbox
+* CSS Grid
+* Media Queries
+* Fluid layouts
+* Responsive images
 
 The design adapts correctly to:
 
-Desktop
+* Desktop
+* Tablet
+* Mobile devices
 
-Tablet
+---
 
-Mobile devices
+## 🧼 Clean Code Principles Applied
 
-🧼 Clean Code Principles Applied
 This project follows clean code best practices:
 
-Small, focused components
+* Small, focused components
+* No duplicated logic (DRY principle)
+* Meaningful variable and function names
+* Consistent file structure
+* Minimal and necessary comments only
+* Separation of concerns
 
-No duplicated logic (DRY principle)
+---
 
-Meaningful variable and function names
+## ⚙️ Installation & Setup
 
-Consistent file structure
-
-Minimal and necessary comments only
-
-Separation of concerns
-
-⚙️ Installation & Setup
 Clone the repository:
 
-git clone https://github.com/Erik2007-bot/F1-Universe.git
+```bash
+git clone https://github.com/your-username/f1-universe.git
+```
+
 Navigate into the project folder:
 
+```bash
 cd f1-universe
+```
+
 Install dependencies:
 
+```bash
 npm install
+```
+
 Start development server:
 
+```bash
 npm run dev
-☁️ Firebase Setup
-The forum functionality is powered by Firebase Firestore.
+```
 
-To run the project with Firebase:
+---
 
-Create a Firebase project
+## 📦 Branch Structure
 
-Enable Cloud Firestore
-
-Add your Firebase configuration in:
-
-src/firebase.js
-Example configuration:
-
-import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
-
-const firebaseConfig = {
-  apiKey: "...",
-  authDomain: "...",
-  projectId: "...",
-  storageBucket: "...",
-  messagingSenderId: "...",
-  appId: "..."
-};
-
-const app = initializeApp(firebaseConfig);
-export const db = getFirestore(app);
-📦 Branch Structure
 The repository includes:
 
-main → Stable production version
+* `main` → Stable production version
+* `develop` → Development branch
 
-develop → Development branch
+---
 
-📈 Future Improvements
-Add race results section
+## 📈 Future Improvements
 
-Add driver detail pages
+* Add race results section
+* Add driver detail pages
+* Implement search and filtering
+* Add multilingual support (i18n)
+* Add backend integration
+* Improve form validation with state management
 
-Implement search and filtering
+---
 
-Add multilingual support (i18n)
+## 👤 Author
 
-Add backend authentication
-
-Improve form validation with state management
-
-Add user accounts for the forum
-
-**👤 Author**
-Erik
+**Erik**
 
 GitHub:
 https://github.com/Erik2007-bot
 
-📄 License
+---
+
+## 📄 License
+
 This project was created for educational purposes only.
 
-🏁 Final Notes
+---
+
+# 🏁 Final Notes
+
 This project demonstrates:
 
-Component-based architecture
-
-Clean and maintainable code
-
-Proper routing structure
-
-Third-party integrations
-
-Firebase database usage
-
-Responsive web design
-
-Real-world UI/UX considerations
+* Component-based architecture
+* Clean and maintainable code
+* Proper routing structure
+* Third-party integration
+* Responsive web design
+* Real-world UI/UX considerations
