@@ -144,6 +144,7 @@ The application was built following component-based architecture:
 * `Footer`
 * `RaceCard`
 * `DriverCard`
+* `Forum`
 
 Each component:
 
