@@ -32,7 +32,7 @@ The project is deployed using **Firebase Hosting**.
 You can access the live version here:
 
 🔗 **Live URL:**  
-PASTE_YOUR_FIREBASE_LINK_HERE
+(https://f1-universe.web.app)
 
 ---
 
