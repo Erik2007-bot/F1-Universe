@@ -285,3 +285,5 @@ This project demonstrates:
 * Third-party integration
 * Responsive web design
 * Real-world UI/UX considerations
+
+![F1 Universe Preview](./image.png)
