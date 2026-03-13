@@ -9,17 +9,15 @@ const ForumSection = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedCategory, setSelectedCategory] = useState('All');
 
-    // Estado para el formulario de nuevo post
     const [newPost, setNewPost] = useState({ titulo: '', contenido: '', Categoria: 'General' });
 
-    // Estados para edición y mensajes (Reemplazan a las alertas)
     const [editingId, setEditingId] = useState(null);
     const [editForm, setEditForm] = useState({ titulo: '', contenido: '' });
     const [statusMessage, setStatusMessage] = useState('');
 
     const categories = ['All', 'General', 'Races', 'Tech', 'Drivers', 'Rumors'];
 
-    // 1. LEER DATOS (FETCH)
+    // 1. LEER DATOS
     const fetchPosts = async () => {
         setLoading(true);
         try {
@@ -44,13 +42,13 @@ const ForumSection = () => {
         fetchPosts();
     }, []);
 
-    // Función para mostrar mensajes sin usar alert()
+    // Función para mostrar mensajes
     const showStatus = (msg) => {
         setStatusMessage(msg);
         setTimeout(() => setStatusMessage(''), 3000);
     };
 
-    // 2. INSERCIÓN (CREATE)
+    // 2.(CREATE)
     const handleCreatePost = async (e) => {
         e.preventDefault();
         try {
@@ -82,7 +80,7 @@ const ForumSection = () => {
         }
     };
 
-    // 3. ACTUALIZACIÓN (UPDATE) - Edición de Título y Contenido
+    // 3.(UPDATE)
     const startEditing = (post) => {
         setEditingId(post.id);
         setEditForm({ titulo: post.title, contenido: post.content });
@@ -108,7 +106,7 @@ const ForumSection = () => {
         }
     };
 
-    // 4. BORRADO (DELETE)
+    // 4.DELETE
     const handleDeletePost = async (id) => {
         try {
             await deleteDoc(doc(db, 'posts', id));
@@ -129,7 +127,7 @@ const ForumSection = () => {
 
     return (
         <section id="forum" className="forum-section">
-            {/* Mensaje de estado tipo Toast */}
+            {/* Mensaje de estado*/}
             {statusMessage && <div className="status-toast">{statusMessage}</div>}
 
             <header className="forum-header">

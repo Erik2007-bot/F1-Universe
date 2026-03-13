@@ -31,7 +31,7 @@ const Home = () => {
     );
 
     // Next GP coords (Albert Park)
-    const position = [-37.8497, 144.968];
+    const position = [31.3389, 121.2197];
 
     const { hash } = useLocation();
 

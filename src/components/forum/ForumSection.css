@@ -13,7 +13,7 @@
     position: relative;
 }
 
-/* --- NOTIFICACIÓN (TOAST) --- */
+/*NOTIFICACIÓN*/
 .status-toast {
     position: fixed;
     top: 20px;
@@ -39,7 +39,7 @@
     }
 }
 
-/* --- HEADER --- */
+/*HEADER*/
 .forum-section .forum-header {
     text-align: left;
     margin-bottom: 3rem;
@@ -52,7 +52,7 @@
     margin-bottom: 0.5rem;
 }
 
-/* --- FORMULARIO DE CREACIÓN --- */
+/*FORMULARIO DE CREACIÓN*/
 .forum-section .create-post-wrapper {
     background: var(--f1-white);
     padding: 2rem;
@@ -101,7 +101,7 @@
     text-transform: uppercase;
 }
 
-/* --- BUSCADOR Y FILTROS --- */
+/*BUSCADOR Y FILTROS*/
 .forum-section .forum-controls {
     display: flex;
     justify-content: space-between;
@@ -130,7 +130,7 @@
     color: white;
 }
 
-/* --- TARJETAS DE POSTS --- */
+/*TARJETAS DE POSTS*/
 .forum-section .posts-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -163,7 +163,7 @@
     text-transform: uppercase;
 }
 
-/* --- MODO EDICIÓN (Dentro de la tarjeta) --- */
+
 .edit-mode-container {
     display: flex;
     flex-direction: column;
@@ -192,7 +192,7 @@
     outline: none;
 }
 
-/* --- ACCIONES Y FOOTER --- */
+/*ACCIONES Y FOOTER*/
 .forum-section .post-footer {
     padding: 1rem 1.5rem;
     background: #f9f9f9;
@@ -254,7 +254,6 @@
     color: white;
 }
 
-/* --- RESPONSIVE --- */
 @media (max-width: 768px) {
     .forum-section .forum-controls {
         flex-direction: column;
