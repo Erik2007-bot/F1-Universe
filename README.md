@@ -217,7 +217,7 @@ This project follows clean code best practices:
 Clone the repository:
 
 ```bash
-git clone https://github.com/your-username/f1-universe.git
+git clone https://github.com/Erik2007-bot/F1-Universe.git
 ```
 
 Navigate into the project folder:
