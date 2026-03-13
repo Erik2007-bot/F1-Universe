@@ -21,6 +21,19 @@ The goal of this project was to:
 * Deliver a professional user experience
 
 ---
+---
+
+## 🌐 Live Demo (Firebase Hosting)
+
+The project is deployed using **Firebase Hosting**.
+
+You can access the live version here:
+
+🔗 **Live URL:**  
+(https://f1-universe.web.app)
+
+---
+
 
 ## 🚀 Features
 
@@ -49,12 +62,16 @@ src/
 │   ├── header/
 │   ├── footer/
 │   ├── race-card/
-│   └── driver-card/
+│   ├── driver-card/
+│   └── Forum/
+|   
 │
 ├── pages/
 │   ├── home/
 │   ├── drivers/
-│   └── contact/
+│   ├── contact/
+│   ├── legal/
+│   └── news/
 │
 ├── data/
 │   ├── f1-2026.json
@@ -140,6 +157,7 @@ The application was built following component-based architecture:
 * `Footer`
 * `RaceCard`
 * `DriverCard`
+* `Forum`
 
 Each component:
 
