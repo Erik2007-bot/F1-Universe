@@ -30,7 +30,7 @@ const Home = () => {
         race.location.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
-    // Next GP coords (Albert Park)
+    // Next GP coords (Shangái)
     const position = [31.3389, 121.2197];
 
     const { hash } = useLocation();

@@ -13,7 +13,6 @@
     position: relative;
 }
 
-/*NOTIFICACIÓN*/
 .status-toast {
     position: fixed;
     top: 20px;
@@ -39,7 +38,6 @@
     }
 }
 
-/*HEADER*/
 .forum-section .forum-header {
     text-align: left;
     margin-bottom: 3rem;
@@ -52,7 +50,6 @@
     margin-bottom: 0.5rem;
 }
 
-/*FORMULARIO DE CREACIÓN*/
 .forum-section .create-post-wrapper {
     background: var(--f1-white);
     padding: 2rem;
@@ -101,7 +98,6 @@
     text-transform: uppercase;
 }
 
-/*BUSCADOR Y FILTROS*/
 .forum-section .forum-controls {
     display: flex;
     justify-content: space-between;
