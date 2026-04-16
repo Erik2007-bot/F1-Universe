@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
-import { collection, getDocs, addDoc, deleteDoc, updateDoc, doc } from 'firebase/firestore';
-import { db } from '../../firebase';
+import { getPosts, createPost, updatePost, deletePost } from '../../services/forumService';
 import './ForumSection.css';
 
 const ForumSection = () => {
@@ -21,15 +20,7 @@ const ForumSection = () => {
     const fetchPosts = async () => {
         setLoading(true);
         try {
-            const snapshot = await getDocs(collection(db, 'posts'));
-            const postsList = snapshot.docs.map(doc => ({
-                id: doc.id,
-                title: doc.data().titulo,
-                content: doc.data().contenido,
-                category: doc.data().Categoria,
-                date: doc.data().createdAt?.toDate ? doc.data().createdAt.toDate().toLocaleDateString() : 'Reciente',
-                author: doc.data().author || "Fan de F1"
-            }));
+            const postsList = await getPosts();
             setPosts(postsList);
         } catch (error) {
             console.error("Error al obtener posts: ", error);
@@ -60,7 +51,7 @@ const ForumSection = () => {
                 author: "Usuario F1"
             };
 
-            const docRef = await addDoc(collection(db, 'posts'), postData);
+            const docRef = await createPost(postData);
 
             // Sincronización del Array JSON local
             const newPostObject = {
@@ -88,8 +79,7 @@ const ForumSection = () => {
 
     const handleUpdatePost = async (id) => {
         try {
-            const postRef = doc(db, 'posts', id);
-            await updateDoc(postRef, {
+            await updatePost(id, {
                 titulo: editForm.titulo,
                 contenido: editForm.contenido
             });
@@ -109,7 +99,7 @@ const ForumSection = () => {
     // 4.DELETE
     const handleDeletePost = async (id) => {
         try {
-            await deleteDoc(doc(db, 'posts', id));
+            await deletePost(id);
             // Sincronización del Array JSON local
             setPosts(posts.filter(p => p.id !== id));
             showStatus("Post eliminado del sistema");
