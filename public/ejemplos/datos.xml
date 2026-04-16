@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<posts>
+  <post>
+    <titulo>Predicciones GP Australia 2026</titulo>
+    <contenido>¿Quién creéis que se llevará la primera victoria? Yo apuesto por Alonso.</contenido>
+    <categoria>Races</categoria>
+    <autor>F1Expert</autor>
+    <fecha>2026-03-01</fecha>
+  </post>
+  <post>
+    <titulo>Problemas técnicos en los test</titulo>
+    <contenido>Parece que el nuevo motor de Red Bull está dando problemas de fiabilidad.</contenido>
+    <categoria>Tech</categoria>
+    <autor>EngineGuru</autor>
+    <fecha>2026-03-05</fecha>
+  </post>
+</posts>

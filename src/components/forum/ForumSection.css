@@ -260,3 +260,99 @@
         width: 100%;
     }
 }
+
+/* BOTONES DE EXPORTACIÓN E IMPORTACIÓN */
+.export-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    margin-top: 1.5rem;
+}
+
+.button-group {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+}
+
+.export-label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    min-width: 100px;
+}
+
+.export-btn,
+.import-btn {
+    padding: 0.5rem 1.4rem;
+    border-radius: 25px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    cursor: pointer;
+    border: 2px solid;
+    text-transform: uppercase;
+    transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.export-json {
+    border-color: #f7a600;
+    color: #f7a600;
+    background: transparent;
+}
+
+.export-json:hover {
+    background: #f7a600;
+    color: white;
+    transform: translateY(-2px);
+}
+
+.export-csv {
+    border-color: #28a745;
+    color: #28a745;
+    background: transparent;
+}
+
+.export-csv:hover {
+    background: #28a745;
+    color: white;
+    transform: translateY(-2px);
+}
+
+.export-xml {
+    border-color: #007bff;
+    color: #007bff;
+    background: transparent;
+}
+
+.export-xml:hover {
+    background: #007bff;
+    color: white;
+    transform: translateY(-2px);
+}
+
+.import-btn {
+    border-color: var(--f1-dark);
+    color: var(--f1-dark);
+    background: transparent;
+}
+
+.import-btn:hover:not(:disabled) {
+    background: var(--f1-dark);
+    color: white;
+    transform: translateY(-2px);
+}
+
+.import-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+@media (max-width: 480px) {
+    .export-label {
+        width: 100%;
+        margin-bottom: 0.3rem;
+    }
+}

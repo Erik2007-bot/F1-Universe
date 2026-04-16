@@ -267,6 +267,29 @@ The repository includes:
 
 ---
 
+## 📤 Importación y Exportación de Datos
+
+La aplicación permite la gestión persistente de datos del foro conectándose directamente con **Firebase Firestore**.
+
+### 1️⃣ Exportación
+Desde el panel superior del foro, puedes exportar los hilos actuales en tres formatos:
+* **JSON**: Formato estándar de intercambio de datos.
+* **CSV**: Ideal para abrir en hojas de cálculo como Excel.
+* **XML**: Estructura jerárquica compatible con sistemas legados.
+
+### 2️⃣ Importación
+Puedes cargar datos masivos a la aplicación seleccionando archivos compatibles. La aplicación parsea el contenido y lo sube automáticamente a la colección de Firebase.
+* El sistema detecta automáticamente el formato por la extensión del archivo.
+* Se recalcula la fecha de creación al momento de la importación.
+
+### 📂 Archivos de Ejemplo
+Se proporcionan archivos de ejemplo con el calendario 2026 pre-cargado:
+- 📄 [descargar datos.json](./public/ejemplos/datos.json)
+- 📄 [descargar datos.csv](./public/ejemplos/datos.csv)
+- 📄 [descargar datos.xml](./public/ejemplos/datos.xml)
+
+---
+
 ## 📈 Future Improvements
 
 * Add race results section
@@ -305,3 +328,13 @@ This project demonstrates:
 * Real-world UI/UX considerations
 
 ![F1 Universe Preview](./image.png)
+
+---
+
+## 📂 Archivos de Importación de Ejemplo
+
+Se proporcionan archivos de ejemplo en tres formatos para importar datos del calendario F1 2026:
+
+- 📄 [datos.csv](./public/ejemplos/datos.csv)
+- 📄 [datos.xml](./public/ejemplos/datos.xml)
+- 📄 [datos.json](./public/ejemplos/datos.json)

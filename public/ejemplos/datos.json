@@ -1,0 +1,23 @@
+[
+    {
+        "titulo": "Predicciones GP Australia 2026",
+        "contenido": "¿Quién creéis que se llevará la primera victoria de la nueva era? Yo apuesto por Alonso.",
+        "categoria": "Races",
+        "autor": "F1Expert",
+        "fecha": "2026-03-01"
+    },
+    {
+        "titulo": "Problemas técnicos en los test",
+        "contenido": "Parece que el nuevo motor de Red Bull está dando problemas de fiabilidad.",
+        "categoria": "Tech",
+        "autor": "EngineGuru",
+        "fecha": "2026-03-05"
+    },
+    {
+        "titulo": "Rumores de fichajes",
+        "contenido": "Se dice que Colapinto podría ir a un equipo grande en 2027.",
+        "categoria": "Rumors",
+        "autor": "PaddockNews",
+        "fecha": "2026-03-10"
+    }
+]

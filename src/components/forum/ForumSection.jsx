@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getPosts, createPost, updatePost, deletePost } from '../../services/forumService';
+import { getPosts, createPost, updatePost, deletePost, exportPostsToJSON, exportPostsToCSV, exportPostsToXML, importPostsFromFile } from '../../services/forumService';
 import './ForumSection.css';
 
 const ForumSection = () => {
@@ -13,6 +13,7 @@ const ForumSection = () => {
     const [editingId, setEditingId] = useState(null);
     const [editForm, setEditForm] = useState({ titulo: '', contenido: '' });
     const [statusMessage, setStatusMessage] = useState('');
+    const [isImporting, setIsImporting] = useState(false);
 
     const categories = ['All', 'General', 'Races', 'Tech', 'Drivers', 'Rumors'];
 
@@ -37,6 +38,29 @@ const ForumSection = () => {
     const showStatus = (msg) => {
         setStatusMessage(msg);
         setTimeout(() => setStatusMessage(''), 3000);
+    };
+
+    // 1.5 IMPORTACIÓN
+    const handleImportClick = () => {
+        document.getElementById('import-input').click();
+    };
+
+    const handleFileChange = async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        setIsImporting(true);
+        try {
+            const count = await importPostsFromFile(file);
+            showStatus(`✅ ¡Se han importado ${count} posts con éxito!`);
+            fetchPosts(); // Recargar la lista
+        } catch (error) {
+            console.error("Error al importar: ", error);
+            showStatus(`❌ Error al importar: ${error.message}`);
+        } finally {
+            setIsImporting(false);
+            e.target.value = ''; // Reset input
+        }
     };
 
     // 2.(CREATE)
@@ -123,6 +147,32 @@ const ForumSection = () => {
             <header className="forum-header">
                 <h1>F1 Community Forum</h1>
                 <p>Comenta la actualidad de la categoría reina.</p>
+                <div className="export-buttons">
+                    <div className="button-group">
+                        <span className="export-label">Exportar:</span>
+                        <button onClick={exportPostsToJSON} className="export-btn export-json">JSON</button>
+                        <button onClick={exportPostsToCSV} className="export-btn export-csv">CSV</button>
+                        <button onClick={exportPostsToXML} className="export-btn export-xml">XML</button>
+                    </div>
+
+                    <div className="button-group">
+                        <span className="export-label">Cargar datos:</span>
+                        <button
+                            onClick={handleImportClick}
+                            className="import-btn"
+                            disabled={isImporting}
+                        >
+                            {isImporting ? 'Importando...' : 'Importar Archivo'}
+                        </button>
+                        <input
+                            type="file"
+                            id="import-input"
+                            style={{ display: 'none' }}
+                            accept=".json,.csv,.xml"
+                            onChange={handleFileChange}
+                        />
+                    </div>
+                </div>
             </header>
 
             <div className="create-post-wrapper">
