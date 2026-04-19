@@ -100,11 +100,30 @@ export const exportPostsToExcel = async () => {
     XLSX.writeFile(workbook, "f1_forum_export.xlsx");
 };
 
+// NUEVA FUNCIÓN: EXPORTAR A LIBREOFFICE (.ODS)
+export const exportPostsToODS = async () => {
+    const posts = await getPosts();
+    if (!posts.length) return alert("No hay datos para exportar.");
+
+    const dataToExport = posts.map(p => ({
+        Titulo: p.title,
+        Contenido: p.content,
+        Categoria: p.category,
+        Autor: p.author,
+        Fecha: p.date
+    }));
+
+    const worksheet = XLSX.utils.json_to_sheet(dataToExport);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Posts F1");
+    XLSX.writeFile(workbook, "f1_forum_export.ods");
+};
+
 // --- 4. FUNCIÓN DE IMPORTACIÓN MULTIFORMATO ---
 export const importPostsFromFile = async (file) => {
     let importedData = [];
     try {
-        if (file.name.endsWith('.xlsx') || file.name.endsWith('.ods')) {
+        if (file.name.endsWith('.xlsx') || file.name.endsWith('.xls') || file.name.endsWith('.ods')) {
             const data = await file.arrayBuffer();
             const workbook = XLSX.read(data);
             importedData = XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]]);
@@ -112,11 +131,26 @@ export const importPostsFromFile = async (file) => {
             const text = await file.text();
             if (file.name.endsWith('.json')) importedData = JSON.parse(text);
             else if (file.name.endsWith('.csv')) {
-                const lines = text.split('\n').slice(1);
+                const lines = text.split('\n').filter(line => line.trim() !== '').slice(1);
                 importedData = lines.map(line => {
                     const v = line.split(',');
-                    return { titulo: v[0], contenido: v[1], categoria: v[2], autor: v[3] };
+                    return {
+                        titulo: v[0]?.replace(/"/g, ''),
+                        contenido: v[1]?.replace(/"/g, ''),
+                        categoria: v[2]?.replace(/"/g, ''),
+                        autor: v[3]?.replace(/"/g, '')
+                    };
                 });
+            } else if (file.name.endsWith('.xml')) {
+                const parser = new DOMParser();
+                const xmlDoc = parser.parseFromString(text, "text/xml");
+                const postsNodes = xmlDoc.getElementsByTagName("post");
+                importedData = Array.from(postsNodes).map(node => ({
+                    titulo: node.getElementsByTagName("titulo")[0]?.textContent || "Sin título",
+                    contenido: node.getElementsByTagName("contenido")[0]?.textContent || "Sin contenido",
+                    categoria: node.getElementsByTagName("categoria")[0]?.textContent || "General",
+                    autor: node.getElementsByTagName("autor")[0]?.textContent || "Usuario F1"
+                }));
             }
         }
 

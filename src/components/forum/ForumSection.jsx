@@ -9,6 +9,7 @@ import {
     exportPostsToCSV,
     exportPostsToXML,
     exportPostsToExcel,
+    exportPostsToODS,
     importPostsFromFile
 } from '../../services/forumService';
 import './ForumSection.css';
@@ -163,6 +164,8 @@ const ForumSection = () => {
                         <button onClick={exportPostsToXML} className="export-btn export-xml">XML</button>
                         {/* Botón de Excel añadido */}
                         <button onClick={exportPostsToExcel} className="export-btn export-excel" style={{ backgroundColor: '#1D6F42', color: 'white' }}>EXCEL</button>
+                        {/* Botón de ODS añadido */}
+                        <button onClick={exportPostsToODS} className="export-btn export-ods" style={{ backgroundColor: '#F37021', color: 'white' }}>ODS</button>
                     </div>
 
                     <div className="button-group">
@@ -178,8 +181,8 @@ const ForumSection = () => {
                             type="file"
                             id="import-input"
                             style={{ display: 'none' }}
-                            // Añadida extensión .xlsx y .ods al accept
-                            accept=".json,.csv,.xml,.xlsx,.ods"
+                            // Añadida extensión .xlsx, .xls y .ods al accept
+                            accept=".json,.csv,.xml,.xlsx,.xls,.ods"
                             onChange={handleFileChange}
                         />
                     </div>
