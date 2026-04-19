@@ -1,5 +1,16 @@
 import { useState, useEffect } from 'react';
-import { getPosts, createPost, updatePost, deletePost, exportPostsToJSON, exportPostsToCSV, exportPostsToXML, importPostsFromFile } from '../../services/forumService';
+// Añadida la importación de exportPostsToExcel
+import {
+    getPosts,
+    createPost,
+    updatePost,
+    deletePost,
+    exportPostsToJSON,
+    exportPostsToCSV,
+    exportPostsToXML,
+    exportPostsToExcel,
+    importPostsFromFile
+} from '../../services/forumService';
 import './ForumSection.css';
 
 const ForumSection = () => {
@@ -77,7 +88,7 @@ const ForumSection = () => {
 
             const docRef = await createPost(postData);
 
-            // Sincronización del Array JSON local
+            // Sincronización del Array local
             const newPostObject = {
                 id: docRef.id,
                 title: postData.titulo,
@@ -108,7 +119,6 @@ const ForumSection = () => {
                 contenido: editForm.contenido
             });
 
-            // Sincronización del Array JSON local
             setPosts(posts.map(p =>
                 p.id === id ? { ...p, title: editForm.titulo, content: editForm.contenido } : p
             ));
@@ -124,7 +134,6 @@ const ForumSection = () => {
     const handleDeletePost = async (id) => {
         try {
             await deletePost(id);
-            // Sincronización del Array JSON local
             setPosts(posts.filter(p => p.id !== id));
             showStatus("Post eliminado del sistema");
         } catch (error) {
@@ -141,7 +150,6 @@ const ForumSection = () => {
 
     return (
         <section id="forum" className="forum-section">
-            {/* Mensaje de estado*/}
             {statusMessage && <div className="status-toast">{statusMessage}</div>}
 
             <header className="forum-header">
@@ -153,6 +161,8 @@ const ForumSection = () => {
                         <button onClick={exportPostsToJSON} className="export-btn export-json">JSON</button>
                         <button onClick={exportPostsToCSV} className="export-btn export-csv">CSV</button>
                         <button onClick={exportPostsToXML} className="export-btn export-xml">XML</button>
+                        {/* Botón de Excel añadido */}
+                        <button onClick={exportPostsToExcel} className="export-btn export-excel" style={{ backgroundColor: '#1D6F42', color: 'white' }}>EXCEL</button>
                     </div>
 
                     <div className="button-group">
@@ -168,7 +178,8 @@ const ForumSection = () => {
                             type="file"
                             id="import-input"
                             style={{ display: 'none' }}
-                            accept=".json,.csv,.xml"
+                            // Añadida extensión .xlsx y .ods al accept
+                            accept=".json,.csv,.xml,.xlsx,.ods"
                             onChange={handleFileChange}
                         />
                     </div>
