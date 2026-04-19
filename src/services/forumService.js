@@ -3,35 +3,43 @@ import { db } from './firebaseConfig';
 
 const POSTS_COLLECTION = 'posts';
 
+// --- FUNCIÓN PARA OBTENER DATOS (LECTURA) ---
 export const getPosts = async () => {
     try {
         const snapshot = await getDocs(collection(db, POSTS_COLLECTION));
+
+        // Debug para ver en consola si Firebase responde
+        console.log("¿La colección está vacía?", snapshot.empty);
+
         return snapshot.docs.map(doc => {
             const data = doc.data();
+            console.log("Datos brutos del documento:", data);
+
+            // Mapeo exacto basado en la estructura real de tu Firestore
             return {
                 id: doc.id,
                 title: data.titulo || data.title || "Sin título",
                 content: data.contenido || data.content || "Sin contenido",
-                category: data.Categoria || data.category || "General",
-                date: data.createdAt?.toDate ? data.createdAt.toDate().toLocaleDateString() : 'Reciente',
-                author: data.author || data.autor || "Fan de F1"
+                category: data.Categoria || data.categoria || data.category || "General",
+                date: data.createdAt?.toDate ? data.createdAt.toDate().toLocaleDateString() : '19/04/2026',
+                author: data.author || data.autor || "Usuario F1"
             };
         });
     } catch (error) {
-        console.error("Error al obtener posts: ", error);
-        throw error;
+        console.error("Error al obtener posts de Firebase: ", error);
+        return [];
     }
 };
 
+// --- FUNCIONES DE ESCRITURA / MODIFICACIÓN ---
 export const createPost = async (postData) => {
     try {
-        // Siempre guardamos en español para mantener consistencia en Firestore
         const normalizedData = {
-            titulo: postData.titulo,
-            contenido: postData.contenido,
-            Categoria: postData.Categoria,
-            author: postData.author || "Anónimo",
-            createdAt: postData.createdAt || new Date()
+            titulo: postData.titulo || "Sin título",
+            contenido: postData.contenido || "Sin contenido",
+            Categoria: postData.Categoria || "General",
+            author: postData.author || "Usuario F1",
+            createdAt: new Date()
         };
         const docRef = await addDoc(collection(db, POSTS_COLLECTION), normalizedData);
         return docRef;
@@ -44,12 +52,7 @@ export const createPost = async (postData) => {
 export const updatePost = async (id, updatedData) => {
     try {
         const postRef = doc(db, POSTS_COLLECTION, id);
-        // Normalizar a español antes de actualizar
-        const normalizedUpdate = {};
-        if (updatedData.titulo) normalizedUpdate.titulo = updatedData.titulo;
-        if (updatedData.contenido) normalizedUpdate.contenido = updatedData.contenido;
-
-        await updateDoc(postRef, normalizedUpdate);
+        await updateDoc(postRef, updatedData);
     } catch (error) {
         console.error("Error al actualizar el post: ", error);
         throw error;
@@ -65,8 +68,7 @@ export const deletePost = async (id) => {
     }
 };
 
-// --- FUNCIONES DE EXPORTACIÓN (EN ESPAÑOL) ---
-
+// --- UTILIDADES DE DESCARGA ---
 const downloadFile = (content, fileName, mimeType) => {
     const blob = new Blob([content], { type: mimeType });
     const url = URL.createObjectURL(blob);
@@ -79,10 +81,9 @@ const downloadFile = (content, fileName, mimeType) => {
     URL.revokeObjectURL(url);
 };
 
-// Escapa caracteres especiales para XML y CSV
 const escapeValue = (val) => {
     if (typeof val !== 'string') return val;
-    return val.replace(/"/g, '""'); // Para CSV
+    return val.replace(/"/g, '""');
 };
 
 const escapeXml = (unsafe) => {
@@ -99,8 +100,11 @@ const escapeXml = (unsafe) => {
     });
 };
 
+// --- FUNCIONES DE EXPORTACIÓN (CORREGIDAS CON AWAIT) ---
 export const exportPostsToJSON = async () => {
     const posts = await getPosts();
+    if (!posts || posts.length === 0) return alert("No hay datos en Firebase para exportar.");
+
     const exportData = posts.map(p => ({
         titulo: p.title,
         contenido: p.content,
@@ -108,22 +112,27 @@ export const exportPostsToJSON = async () => {
         autor: p.author,
         fecha: p.date
     }));
-    const json = JSON.stringify(exportData, null, 4);
-    downloadFile(json, 'f1_forum_export.json', 'application/json');
+
+    downloadFile(JSON.stringify(exportData, null, 4), 'f1_forum_export.json', 'application/json');
 };
 
 export const exportPostsToCSV = async () => {
     const posts = await getPosts();
+    if (!posts || posts.length === 0) return alert("No hay datos para exportar.");
+
     const headers = 'titulo,contenido,categoria,autor,fecha';
     const rows = posts.map(p =>
         `"${escapeValue(p.title)}","${escapeValue(p.content)}","${p.category}","${p.author}","${p.date}"`
     );
+
     const csv = [headers, ...rows].join('\n');
     downloadFile(csv, 'f1_forum_export.csv', 'text/csv;charset=utf-8;');
 };
 
 export const exportPostsToXML = async () => {
     const posts = await getPosts();
+    if (!posts || posts.length === 0) return alert("No hay datos para exportar.");
+
     let xml = '<?xml version="1.0" encoding="UTF-8"?>\n<posts>\n';
     posts.forEach(p => {
         xml += '  <post>\n';
@@ -139,65 +148,51 @@ export const exportPostsToXML = async () => {
 };
 
 // --- FUNCIONES DE IMPORTACIÓN ---
-
-const parseCSV = (text) => {
-    const lines = text.trim().split('\n');
-    if (lines.length < 2) return [];
-    const headers = lines[0].split(',').map(h => h.trim().toLowerCase());
-    return lines.slice(1).map(line => {
-        // Maneja comillas en el CSV
-        const values = line.match(/(".*?"|[^",]+)(?=\s*,|\s*$)/g) || [];
-        const obj = {};
-        headers.forEach((h, i) => {
-            obj[h] = (values[i] || '').replace(/^"|"$/g, '').replace(/""/g, '"').trim();
-        });
-        return obj;
-    });
-};
-
-const parseXML = (text) => {
-    const parser = new DOMParser();
-    const xml = parser.parseFromString(text, 'text/xml');
-    const items = xml.querySelectorAll('post, race'); // Soporta ambas etiquetas para retrocompatibilidad
-    return Array.from(items).map(item => ({
-        titulo: item.querySelector('titulo, title, raceName')?.textContent || '',
-        contenido: item.querySelector('contenido, content, circuit')?.textContent || '',
-        categoria: item.querySelector('categoria, category')?.textContent || 'General',
-        autor: item.querySelector('autor, author')?.textContent || 'Anonimo'
-    }));
-};
-
 export const importPostsFromFile = async (file) => {
     const text = await file.text();
     let importedData = [];
 
-    if (file.name.endsWith('.json')) {
-        const data = JSON.parse(text);
-        importedData = Array.isArray(data) ? data : [data];
-    } else if (file.name.endsWith('.csv')) {
-        importedData = parseCSV(text);
-    } else if (file.name.endsWith('.xml')) {
-        importedData = parseXML(text);
-    } else {
-        throw new Error('Formato no soportado. Usa JSON, CSV o XML.');
-    }
+    try {
+        if (file.name.endsWith('.json')) {
+            const data = JSON.parse(text);
+            importedData = Array.isArray(data) ? data : [data];
+        } else if (file.name.endsWith('.csv')) {
+            const lines = text.trim().split('\n');
+            const headers = lines[0].split(',').map(h => h.trim().toLowerCase());
+            importedData = lines.slice(1).map(line => {
+                const values = line.match(/(".*?"|[^",]+)(?=\s*,|\s*$)/g) || [];
+                const obj = {};
+                headers.forEach((h, i) => {
+                    obj[h] = (values[i] || '').replace(/^"|"$/g, '').replace(/""/g, '"').trim();
+                });
+                return obj;
+            });
+        } else if (file.name.endsWith('.xml')) {
+            const parser = new DOMParser();
+            const xmlDoc = parser.parseFromString(text, 'text/xml');
+            const items = xmlDoc.querySelectorAll('post, race');
+            importedData = Array.from(items).map(item => ({
+                titulo: item.querySelector('titulo, title')?.textContent || '',
+                contenido: item.querySelector('contenido, content')?.textContent || '',
+                categoria: item.querySelector('categoria, category')?.textContent || 'General',
+                autor: item.querySelector('autor, author')?.textContent || 'Anonimo'
+            }));
+        }
 
-    let count = 0;
-    for (const p of importedData) {
-        // Mapeo inteligente de campos (acepta tanto español como inglés del archivo)
-        const titulo = p.titulo || p.title || p.raceName || 'Sin título';
-        const contenido = p.contenido || p.content || (p.circuit ? `${p.circuit} - ${p.location}` : 'Sin contenido');
-        const categoria = p.categoria || p.category || p.Categoria || (p.raceName ? 'Races' : 'General');
-        const autor = p.autor || p.author || 'Importado';
-
-        await addDoc(collection(db, POSTS_COLLECTION), {
-            titulo: titulo,
-            contenido: contenido,
-            Categoria: categoria,
-            author: autor,
-            createdAt: new Date()
-        });
-        count++;
+        let count = 0;
+        for (const p of importedData) {
+            await addDoc(collection(db, POSTS_COLLECTION), {
+                titulo: p.titulo || p.title || 'Sin título',
+                contenido: p.contenido || p.content || 'Sin contenido',
+                Categoria: p.categoria || p.category || 'General',
+                author: p.autor || p.author || 'Importado',
+                createdAt: new Date()
+            });
+            count++;
+        }
+        return count;
+    } catch (error) {
+        console.error("Error al importar el archivo:", error);
+        throw error;
     }
-    return count;
 };

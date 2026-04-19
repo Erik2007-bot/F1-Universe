@@ -287,6 +287,7 @@ Se proporcionan archivos de ejemplo con el calendario 2026 pre-cargado:
 - 📄 [descargar datos.json](./public/ejemplos/datos.json)
 - 📄 [descargar datos.csv](./public/ejemplos/datos.csv)
 - 📄 [descargar datos.xml](./public/ejemplos/datos.xml)
+- 📄 [descargar datos.xlsx](./public/ejemplos/datos.xlsx)
 
 ---
 
